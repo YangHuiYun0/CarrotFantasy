@@ -1,0 +1,56 @@
+{
+  "level_1":{
+    "dt": 1,
+    "count":25,  
+    "waves": [
+      {
+        "dt": 1,
+        "type": 0,
+        "count": 5
+      },
+      {
+        "dt": 2,
+        "type": 1,
+        "count": 5
+      },
+      {
+        "dt": 2,
+        "type": 2,
+        "count": 10
+      },
+    
+      {
+        "dt": 3,
+        "type": 3,
+        "count": 5
+      }
+    ]
+  },
+  "level_2":{
+    "dt": 1,
+    "count":45,  
+    "waves": [
+      {
+        "dt": 1,
+        "type": 2,
+        "count": 10
+      },
+      {
+        "dt": 2,
+        "type": 1,
+        "count": 10
+      },
+      {
+        "dt": 2,
+        "type": 0,
+        "count": 15
+      },
+    
+      {
+        "dt": 3,
+        "type": 3,
+        "count": 10
+      }
+    ]
+  }
+}
