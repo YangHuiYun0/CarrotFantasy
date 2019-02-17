@@ -109,10 +109,11 @@ cc.Class({
     //射击方法
     shootBullet:function(){
         //如果我们的当前的射击时间大于时间间隔  就射击一次
-        global.event.fire("shoot_bullet",this.node,this.enemy.position);
+        // global.event.fire("shoot_bullet",this.node,this.enemy.position);
+        this.node.parent.getComponent("comp_level_1").addBullet(this.node,this.enemy.position);
     },
 
-     //返回我们的伤害值  返回当前的伤害值  因为塔升级的时候伤害也会升级 
+     //返回我们的伤害值  返回当前的伤害值  因为塔升级的时候伤害也会升级  
      getDamage: function () {
         return this.tower_damage;
     },

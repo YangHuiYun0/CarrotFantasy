@@ -15,6 +15,7 @@ cc.Class({
 
     go_downtime :function(){
         global.event.fire("game_start");
+        
        // this.lbl_down_time.string = "2";
     },
 

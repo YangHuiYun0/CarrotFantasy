@@ -63,7 +63,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 197
+        "__id__": 198
       }
     ],
     "_prefab": null,
@@ -147,9 +147,13 @@
     ],
     "_tag": -1,
     "_active": true,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 196
+      }
+    ],
     "_prefab": {
-      "__id__": 196
+      "__id__": 197
     },
     "_id": "40qRUwIkNM9KLgTqMPANrt",
     "_opacity": 255,
@@ -6153,6 +6157,126 @@
     },
     "fileId": "8bhbOqmk9DRrhTrxdmupXS",
     "sync": false
+  },
+  {
+    "__type__": "eb7aa23GxBPza8Mb91jKYbD",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 3
+    },
+    "_enabled": true,
+    "level2_enemynodes": [
+      {
+        "__id__": 118
+      },
+      {
+        "__id__": 121
+      },
+      {
+        "__id__": 124
+      },
+      {
+        "__id__": 127
+      },
+      {
+        "__id__": 130
+      },
+      {
+        "__id__": 133
+      },
+      {
+        "__id__": 136
+      },
+      {
+        "__id__": 139
+      },
+      {
+        "__id__": 142
+      },
+      {
+        "__id__": 145
+      },
+      {
+        "__id__": 148
+      }
+    ],
+    "level2_towernodes": [
+      {
+        "__id__": 153
+      },
+      {
+        "__id__": 156
+      },
+      {
+        "__id__": 159
+      },
+      {
+        "__id__": 162
+      },
+      {
+        "__id__": 165
+      },
+      {
+        "__id__": 168
+      },
+      {
+        "__id__": 171
+      },
+      {
+        "__id__": 174
+      },
+      {
+        "__id__": 177
+      },
+      {
+        "__id__": 180
+      },
+      {
+        "__id__": 183
+      },
+      {
+        "__id__": 186
+      },
+      {
+        "__id__": 189
+      }
+    ],
+    "level2_buildmenu": {
+      "__uuid__": "b3a402eb-b68b-4a66-a686-bb8f4be67429"
+    },
+    "level2_towerprefab": null,
+    "level2_updateMenuPrefab": null,
+    "level2_enemyPrefab": null,
+    "level2_img_hlb1": {
+      "__id__": 194
+    },
+    "level2_frame_hlb": [
+      {
+        "__uuid__": "5dce0355-2ed5-46e7-b8fc-081fc34d9628"
+      },
+      {
+        "__uuid__": "003f8959-5523-4ebc-8b40-a299f7da1292"
+      },
+      {
+        "__uuid__": "1429a686-99d0-4e3b-9c61-58781b694317"
+      },
+      {
+        "__uuid__": "63499954-313d-43ee-8cb5-f50d6020db83"
+      },
+      {
+        "__uuid__": "4e95c971-eeb0-456c-bb43-023fd20dfa90"
+      },
+      {
+        "__uuid__": "f84bb417-8497-4818-8bb2-929d34ece5e7"
+      }
+    ],
+    "level2_node_game_over": null,
+    "level2_bulletPrefab": null,
+    "level2_dead_enemy": null,
+    "level2_enemy_live_num": null,
+    "level2_tower_num": null,
+    "level2_comp_level_2": null
   },
   {
     "__type__": "cc.PrefabInfo",

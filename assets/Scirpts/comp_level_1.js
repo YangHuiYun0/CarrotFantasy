@@ -54,13 +54,15 @@ cc.Class({
             this.setState(node_tower,towerState.Null);
             this.setTouchEvent(node_tower);           
         }
-        //接收消息
-        global.event.on("build_tower",this.Newbuildtower.bind(this));
-        global.event.on("update_tower",this.update_tower.bind(this));
-        global.event.on("delete_tower",this.delete_tower.bind(this));
-        global.event.on("game_start",this.gameStart.bind(this));
-        global.event.on("shoot_bullet",this.addBullet.bind(this));
-        global.event.on("enemy_dead",this.enemy_dead.bind(this));
+       //接收消息
+       global.event.on("build_tower",(_msg)=>{
+        this.Newbuildtower(_msg); 
+       },this);
+       global.event.on("update_tower",this.update_tower.bind(this));
+       global.event.on("delete_tower",this.delete_tower.bind(this));
+       global.event.on("game_start",this.gameStart.bind(this));
+       global.event.on("shoot_bullet",this.addBullet.bind(this));
+       global.event.on("enemy_dead",this.enemy_dead.bind(this));
         //当前的波次
         this.nowCount = 0;
         //当前波次的敌人的数量
@@ -82,6 +84,11 @@ cc.Class({
         
     },
 
+    start () {
+        
+    },
+
+
     //塔事件的监听
     setTouchEvent:function(node){
         node.on(cc.Node.EventType.TOUCH_START,(event)=>{
@@ -100,6 +107,7 @@ cc.Class({
         //在建立塔的菜单时要先关闭菜单
         this.close_build_menu();
         let node_menu = cc.instantiate(this.buildmenu);
+        node_menu.init(1);
         node_menu.parent = this.node;
         node_menu.position = node.position;
         //引入状态机
@@ -113,6 +121,7 @@ cc.Class({
         this.close_build_menu();
         //添加升级塔的菜单
         let upgrade_tower = cc.instantiate(this.updateMenuPrefab);
+        
         upgrade_tower.parent = this.node;
         upgrade_tower.position = node.position;
         this.setState(node,towerState.UpdateMune);
@@ -171,7 +180,7 @@ cc.Class({
     },
     //关监听
     onDestroy:function(){
-        global.event.on("build_tower",this.Newbuildtower);
+        global.event.off("build_tower",this.Newbuildtower);
     },
 
     //塔升级
@@ -213,6 +222,7 @@ cc.Class({
                     this.nowCountnemynum ++;
                     this.enemy_all_num += 1;
                     this.enemy_live_num.string = this.enemy_all_num;
+                    this.dead_enemy.string = this.enemy_dead_sum || 0;
                     this.addEnemy(this.currentWaveConfig.type);
                     if(this.nowCountnemynum === this.currentWaveConfig.count){
                         this.currentWaveConfig = undefined;
@@ -308,7 +318,7 @@ cc.Class({
 
     enemy_dead:function(_num){
         this.enemy_dead_sum += 1;
-        this.dead_enemy.string = this.enemy_dead_sum;
+       
     },
 
     click_again:function(){
@@ -320,9 +330,6 @@ cc.Class({
     },
 
   
-    start () {
-
-    },
 
    
 });
