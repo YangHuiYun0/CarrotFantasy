@@ -107,7 +107,7 @@ cc.Class({
         //在建立塔的菜单时要先关闭菜单
         this.close_build_menu();
         let node_menu = cc.instantiate(this.buildmenu);
-        node_menu.init(1);
+        node_menu.getComponent("comp_build_menu").init(1);
         node_menu.parent = this.node;
         node_menu.position = node.position;
         //引入状态机
@@ -258,6 +258,7 @@ cc.Class({
 
         if((this.enemy_dead_sum + this.eat_num) >= 25 ){
             cc.director.loadScene("game_level_2");
+            global.event.fire("game_start_2");
             return;
         }
 
@@ -299,7 +300,7 @@ cc.Class({
         //把敌人加入列表
         this.enemyList.push(enemy);
         //向敌人的脚本里传敌人的类型和敌人的路径
-        enemy.getComponent("comp_enemy").initWithData(type,this.enemyPathNodes,this.enem);
+        enemy.getComponent("comp_enemy").initWithData(type,this.enemyPathNodes,this.enemyList);
         enemy.getComponent('comp_enemy').comp_level_1 = this;
         
     },

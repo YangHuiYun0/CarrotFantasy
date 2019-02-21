@@ -93,9 +93,11 @@ cc.Class({
                 if(this.enemy_path_point === this.pathPoints.length){
                     //敌人跑到最后面了
                     this.setState(EnemyState.EndPath);
-                    this.comp_level_1.eat_num +=1;
                     this.node.destroy();
-                    this.comp_level_1.gain_play();  
+                    if(this.comp_level_1 !== undefined){
+                        this.comp_level_1.eat_num +=1;
+                        this.comp_level_1.gain_play();
+                    }    
                     return;
                 }
                 // else{
@@ -106,9 +108,12 @@ cc.Class({
             }else{
                 this.node.position = cc.pAdd(this.node.position,cc.pMult(this.enemy_direction,this.enemy_speed*dt));                
             }
-            if(this.comp_level_1.eat_num >= 6){
-                this.node.active = false;
+            if(this.comp_level_1 !== undefined){
+                if(this.comp_level_1.eat_num >= 6){
+                    this.node.active = false;
+                }
             }
+           
         }
         //血量的变化
         this.health_peogressBar.progress = this.enemy_now_health/this.enemy_all_health;

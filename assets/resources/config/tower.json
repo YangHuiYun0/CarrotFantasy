@@ -12,5 +12,19 @@
     "attack_ranges": [250,300,350],
     "look_range": 400,
     "shoot_dts": [1, 0.8 , 0.6]
+  },
+  "comp_tower_3":
+  {
+    "damages": [2,3,4],
+    "attack_ranges": [250,300,350],
+    "look_range": 400,
+    "shoot_dts": [1, 0.8 , 0.6]
+  },
+  "comp_tower_4":
+  {
+    "damages": [3,4,5],
+    "attack_ranges": [250,300,400],
+    "look_range": 450,
+    "shoot_dts": [1.6, 1.2 , 0.9]
   }
 }

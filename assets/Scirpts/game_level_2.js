@@ -42,6 +42,7 @@ cc.Class({
     onLoad(){
         //标志位
         this.mark = false;
+        this.gameStart_leve2();
         //遍历塔
         for(let i = 0 ; i < this.level2_towernodes.length;i++){
             let node_tower = this.level2_towernodes[i];
@@ -49,6 +50,30 @@ cc.Class({
             this.setState(node_tower,towerState.Null);
             this.setTouchEvent(node_tower);
         }
+        global.event.on("update_tower",this.update_leve2_tower.bind(this));
+        global.event.on("delete_tower",this.delete_leve2_tower.bind(this));
+        // global.event.on("game_start_2",()=>{
+            
+        // },this.node);
+        //当前波次
+        this.now_count = 0 ;
+        //当前波次敌人的数量
+        this.now_count_enemy_num = 0
+        //当前增加敌人的时间
+        this.now_add_enemy_time = 0;
+        //当前增加的波次的时间
+        this.now_add_count_time = 0;
+        //敌人的列表
+        this.enemy_list = [];
+         //标志位  记录有多少只敌人吃了萝卜
+         this.eat_num = 0;
+         //敌人死亡次数
+         this.enemy_dead_sum = 0 ;
+         //建塔的数量
+         this.set_tower_num = 0 ;
+         //敌人出现总个数
+         this.enemy_all_num = 0 ;
+
     },
 
     start () {
@@ -93,9 +118,11 @@ cc.Class({
         node.buildmenu = node_menu;
     },
 
+    //升级塔
     show_update_level2_menu:function(node){
         this.close_tower();
         let update_tower = cc.instantiate(this.level2_updateMenuPrefab);
+       // update_tower.getComponent("comp_update_tower").init(2);
         update_tower.parent = this.node;
         update_tower.position = node.position;
         this.setState(node,towerState.UpdateMune);
@@ -130,5 +157,78 @@ cc.Class({
         this.setState(node,towerState.Tower);
         node.tower = tower;
     },
+    
+    //塔升级
+    update_leve2_tower : function(){
+        let node = this.close_tower();
+        node.tower.getComponent("tower").updateTower();
+    },
 
+    //塔清除
+    delete_leve2_tower:function(){
+        let node = this.close_tower();
+        this.setState(node,towerState.Null);
+        node.tower.getComponent("tower").deleteTower();
+        node.tower = undefined;
+    },
+
+    //敌人出现
+    gameStart_leve2:function(){
+        cc.loader.loadRes("config/level_config.json",(err,result)=>{
+            if(err){
+                cc.log("表格出错");
+            }else{
+                cc.log("s读取"+JSON.stringify(result));
+            }
+            //取出第一关数据
+            this.level2Confing = result.level_2;
+            this.leve2_currentWaveConfig = this.level2Confing.waves[0];
+            this.mark = true;
+        });
+    },
+
+    update:function(dt){
+        if(this.mark=== true){
+            if(this.leve2_currentWaveConfig){
+               if(this.now_add_enemy_time>this.leve2_currentWaveConfig.dt){
+                   this.now_add_enemy_time = 0;
+                   this.now_count_enemy_num ++;
+                   //敌人的总数量
+                   this.enemy_all_num += 1;
+                   //增加敌人
+                   this.add_enemy(this.leve2_currentWaveConfig.type);
+                   if(this.now_count_enemy_num === this.leve2_currentWaveConfig.count){
+                       this.leve2_currentWaveConfig = undefined;
+                       this.now_count_enemy_num = 0;
+                   }
+                  
+               }else {
+                   this.now_add_enemy_time += dt;
+               }
+            }//增加第二波
+            else{
+                if(this.now_add_count_time > this.level2Confing.dt){
+                    this.leve2_currentWaveConfig = this.level2Confing.waves[this.now_count+1];
+                    //如果当前波次小于配置表的总波次
+                    if(this.now_count < this.level2Confing.waves.length){
+                        this.now_count ++;
+                    }else{
+                        this.leve2_currentWaveConfig = undefined;
+                    }
+                    this.now_add_count_time = 0;
+                }else{
+                    this.now_add_count_time += dt;
+                }
+            }
+        }
+    },
+
+    add_enemy : function(_type){
+        //初始化敌人
+        let enemy = cc.instantiate(this.level2_enemyPrefab);
+        enemy.parent = this.node;
+        this.enemy_list.push(enemy);
+        enemy.getComponent("comp_enemy").initWithData(_type,this.level2_enemynodes,this.enemy_list);
+        enemy.getComponent("comp_enemy").game_level_2 = this;
+    },
 });

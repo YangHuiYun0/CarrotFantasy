@@ -6199,6 +6199,9 @@
       },
       {
         "__id__": 148
+      },
+      {
+        "__id__": 193
       }
     ],
     "level2_towernodes": [
@@ -6245,9 +6248,20 @@
     "level2_buildmenu": {
       "__uuid__": "b3a402eb-b68b-4a66-a686-bb8f4be67429"
     },
-    "level2_towerprefab": null,
-    "level2_updateMenuPrefab": null,
-    "level2_enemyPrefab": null,
+    "level2_towerprefab": [
+      {
+        "__uuid__": "39942456-11c5-4c2f-9a4f-48139f95205e"
+      },
+      {
+        "__uuid__": "8e59c271-f785-4621-aa9a-128b890fc1e7"
+      }
+    ],
+    "level2_updateMenuPrefab": {
+      "__uuid__": "63a34cdd-75ee-4d74-bcd4-dc061cc12f1b"
+    },
+    "level2_enemyPrefab": {
+      "__uuid__": "0cbdbf24-9bd3-4d68-ae1b-890820c87658"
+    },
     "level2_img_hlb1": {
       "__id__": 194
     },
