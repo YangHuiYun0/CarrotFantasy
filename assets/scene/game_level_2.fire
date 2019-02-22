@@ -6286,10 +6286,18 @@
       }
     ],
     "level2_node_game_over": null,
-    "level2_bulletPrefab": null,
-    "level2_dead_enemy": null,
-    "level2_enemy_live_num": null,
-    "level2_tower_num": null,
+    "level2_bulletPrefab": {
+      "__uuid__": "68bc02ee-04e5-43dd-a4b3-83130ff2d362"
+    },
+    "level2_dead_enemy": {
+      "__id__": 19
+    },
+    "level2_enemy_live_num": {
+      "__id__": 25
+    },
+    "level2_tower_num": {
+      "__id__": 37
+    },
     "level2_comp_level_2": null
   },
   {

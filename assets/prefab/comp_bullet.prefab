@@ -45,8 +45,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 45,
+      "height": 45
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -162,7 +162,24 @@
     "node": {
       "__id__": 1
     },
-    "_enabled": true
+    "_enabled": true,
+    "img_bullet": {
+      "__id__": 3
+    },
+    "spr_bullets": [
+      {
+        "__uuid__": "4c9acf80-38d7-4542-bfde-fa72837c5fe1"
+      },
+      {
+        "__uuid__": "0546417e-11dc-4bf1-b48d-e294df93bf16"
+      },
+      {
+        "__uuid__": "7004e098-e99f-4337-aab1-5e2df46db4d4"
+      },
+      {
+        "__uuid__": "fc180c3d-c9ab-4ae2-9283-b13a72b1d53e"
+      }
+    ]
   },
   {
     "__type__": "cc.PrefabInfo",

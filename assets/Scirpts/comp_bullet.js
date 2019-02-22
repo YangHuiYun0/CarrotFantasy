@@ -4,6 +4,10 @@ cc.Class({
 
     properties: {
 
+        img_bullet : cc.Sprite,
+        spr_bullets : [cc.SpriteFrame],
+
+
     },
 
     onLoad:function(){
@@ -11,6 +15,10 @@ cc.Class({
         this.direction = cc.p(0,0);
         //子弹移动的速度
         this.bullet_speed = 600;
+    },
+
+    init:function(_id){
+        this.img_bullet.spriteFrame = this.spr_bullets[_id-1];
     },
 
     initWithData:function(tower,enemy_position,enemylist){

@@ -68,11 +68,12 @@ cc.Class({
          //标志位  记录有多少只敌人吃了萝卜
          this.eat_num = 0;
          //敌人死亡次数
-         this.enemy_dead_sum = 0 ;
+        this.enemy_dead_sum = 0 ;
          //建塔的数量
          this.set_tower_num = 0 ;
          //敌人出现总个数
          this.enemy_all_num = 0 ;
+         this.level2_enemy_live_num.string = 45 ;
 
     },
 
@@ -156,6 +157,8 @@ cc.Class({
         tower.position = node.position; //位置放在刚才关掉预制件的位置
         this.setState(node,towerState.Tower);
         node.tower = tower;
+        this.set_tower_num += 1;
+        this.level2_tower_num.string = this.set_tower_num;
     },
     
     //塔升级
@@ -193,8 +196,7 @@ cc.Class({
                if(this.now_add_enemy_time>this.leve2_currentWaveConfig.dt){
                    this.now_add_enemy_time = 0;
                    this.now_count_enemy_num ++;
-                   //敌人的总数量
-                   this.enemy_all_num += 1;
+                   this.level2_dead_enemy.string = this.enemy_dead_sum || 0;
                    //增加敌人
                    this.add_enemy(this.leve2_currentWaveConfig.type);
                    if(this.now_count_enemy_num === this.leve2_currentWaveConfig.count){
@@ -221,6 +223,29 @@ cc.Class({
                 }
             }
         }
+
+        //做攻击敌人
+        for(let i = 0 ; i < this.level2_towernodes.length;i++){
+            let tower =  this.level2_towernodes[i].tower;
+            if(tower !== undefined && tower.getComponent("tower").isFree()){
+                for(let j = 0 ; j < this.enemy_list.length ; j++){
+                    let enemy = this.enemy_list[j];
+                    if(this.enemy_list[0].name === ""){
+                        this.enemy_list.shift();
+                        return;
+                    }
+                    if(enemy._name){
+                        if(enemy.getComponent("comp_enemy").isLiving()){
+                            tower.getComponent("tower").setEnemy(enemy);
+                        }else if (enemy.getComponent("comp_enemy").isDead()){
+                            this.enemy_list.splice(j,1);
+                        }
+                    }else{
+
+                    }
+                }
+            }
+        }
     },
 
     add_enemy : function(_type){
@@ -230,5 +255,18 @@ cc.Class({
         this.enemy_list.push(enemy);
         enemy.getComponent("comp_enemy").initWithData(_type,this.level2_enemynodes,this.enemy_list);
         enemy.getComponent("comp_enemy").game_level_2 = this;
+    },
+
+    //创建子弹
+    add_bullet : function(tower,enemy_position,_id){
+        let bullet = cc.instantiate(this.level2_bulletPrefab);
+        bullet.getComponent("comp_bullet").init(Number(_id));
+        bullet.parent = this.node;
+        bullet.getComponent("comp_bullet").initWithData(tower,enemy_position,this.enemy_list);
+    },
+
+    //敌人死的个数
+    enemy_dead : function(_num){
+        this.enemy_dead_sum += 1;
     },
 });

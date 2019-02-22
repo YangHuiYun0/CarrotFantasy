@@ -81,6 +81,7 @@ cc.Class({
          this.set_tower_num = 0 ;
          //敌人出现总个数
          this.enemy_all_num = 0 ;
+         this.enemy_live_num.string = 25;
         
     },
 
@@ -219,9 +220,7 @@ cc.Class({
                 //如果当前的波次存在  则加敌人
                 if(this.nowAddnemytime > this.currentWaveConfig.dt){
                     this.nowAddnemytime = 0;
-                    this.nowCountnemynum ++;
-                    this.enemy_all_num += 1;
-                    this.enemy_live_num.string = this.enemy_all_num;
+                    this.nowCountnemynum ++ ;
                     this.dead_enemy.string = this.enemy_dead_sum || 0;
                     this.addEnemy(this.currentWaveConfig.type);
                     if(this.nowCountnemynum === this.currentWaveConfig.count){
@@ -305,9 +304,10 @@ cc.Class({
         
     },
 
-    addBullet:function(tower,enemy_position){
+    addBullet:function(tower,enemy_position,_id){
         //创建子弹
         let bullet = cc.instantiate(this.bulletPrefab);
+        bullet.getComponent("comp_bullet").init(Number(_id));
         bullet.parent = this.node;
         bullet.getComponent("comp_bullet").initWithData(tower,enemy_position,this.enemyList);
     },

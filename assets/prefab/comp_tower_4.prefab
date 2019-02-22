@@ -179,7 +179,8 @@
     "node_tower": {
       "__id__": 3
     },
-    "tower_type": "comp_tower_4"
+    "tower_type": "comp_tower_4",
+    "tower_id": "4"
   },
   {
     "__type__": "cc.PrefabInfo",

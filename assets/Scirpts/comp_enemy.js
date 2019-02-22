@@ -134,8 +134,12 @@ cc.Class({
             this.enemy_now_health = 0;
             this.setState(EnemyState.Dead);
             this.enemy_dead_num = 1;
-           // global.event.fire("enemy_dead",this.enemy_dead_num);
-            this.node.parent.getComponent("comp_level_1").enemy_dead(this.enemy_dead_num);
+            if(this.node.parent.name === "comp_level_1"){
+                this.node.parent.getComponent("comp_level_1").enemy_dead(this.enemy_dead_num);
+            }else if (this.node.parent.name === "comp_level_2"){
+                this.node.parent.getComponent("game_level_2").enemy_dead(this.enemy_dead_num);
+            }
+            
         }
     },
 
