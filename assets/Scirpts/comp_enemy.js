@@ -13,6 +13,7 @@ cc.Class({
         img_enemy :cc.Sprite,
         enemy_frames : [cc.SpriteFrame],
         health_peogressBar : cc.ProgressBar,
+        audio_gongji_enemy : cc.AudioClip,
     },
 
     onLoad:function(){
@@ -97,7 +98,10 @@ cc.Class({
                     if(this.comp_level_1 !== undefined){
                         this.comp_level_1.eat_num +=1;
                         this.comp_level_1.gain_play();
-                    }    
+                    }else if (this.game_level_2 !== undefined){
+                        this.game_level_2.eat_num +=1;
+                        this.game_level_2.gain_play();
+                    }   
                     return;
                 }
                 // else{
@@ -110,6 +114,10 @@ cc.Class({
             }
             if(this.comp_level_1 !== undefined){
                 if(this.comp_level_1.eat_num >= 6){
+                    this.node.active = false;
+                }
+            }else if (this.game_level_2 !== undefined){
+                if(this.game_level_2.eat_num >= 6){
                     this.node.active = false;
                 }
             }
@@ -127,6 +135,9 @@ cc.Class({
     },
     //敌人被攻击
     beAttacked:function(damage){
+        cc.audioEngine.setEffectsVolume(0.2);
+        //背景音乐，循环播放
+        cc.audioEngine.playMusic(this.audio_gongji_enemy,false);
         //当前的血量减去伤害值
         this.enemy_now_health -= damage;
         if(this.enemy_now_health < 0){

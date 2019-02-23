@@ -416,6 +416,9 @@
     ],
     "health_peogressBar": {
       "__id__": 11
+    },
+    "audio_gongji_enemy": {
+      "__uuid__": "48809390-7d03-47d5-bf41-3e7b53259427"
     }
   },
   {

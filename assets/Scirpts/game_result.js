@@ -4,11 +4,21 @@ cc.Class({
 
     properties: {
 
+        lbl_dead_enemy :cc.Label,
+        lbl_all_enemy : cc.Label,
+
     },
 
 
     start () {
 
+    },
+    onLoad:function(){
+        let dead_num =cc.sys.localStorage.getItem("dead_num");
+        let all_num = cc.sys.localStorage.getItem("all_num");
+
+        this.lbl_dead_enemy.string = dead_num;
+        this.lbl_all_enemy.string = all_num;
     },
 
     

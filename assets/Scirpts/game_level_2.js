@@ -246,6 +246,14 @@ cc.Class({
                 }
             }
         }
+
+        if(this.eat_num >= 6){
+            //this.node_game_over.active = true;
+            cc.sys.localStorage.setItem("dead_num",this.enemy_dead_sum);
+            cc.sys.localStorage.setItem("all_num",45);
+            cc.director.loadScene("game_result")
+
+        }
     },
 
     add_enemy : function(_type){
@@ -268,5 +276,10 @@ cc.Class({
     //敌人死的个数
     enemy_dead : function(_num){
         this.enemy_dead_sum += 1;
+    },
+
+    gain_play : function(){
+        this.level2_img_hlb1.spriteFrame = this.level2_frame_hlb[this.eat_num];
+
     },
 });

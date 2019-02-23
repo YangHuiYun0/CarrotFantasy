@@ -43,6 +43,13 @@ cc.Class({
         enemy_live_num : cc.Label,
         tower_num : cc.Label,
         comp_level_2 : cc.Node,
+        node_enemy :cc.Node,
+        audio_hlb_read : cc.AudioClip,
+        audio_eat_hlb : cc.AudioClip,
+        audio_dead_enemy : cc.AudioClip,
+        audio_tower_build :cc.AudioClip,
+        audio_tower_updata :cc.AudioClip,
+        audio_tower_sell :cc.AudioClip,
     },
 
     onLoad:function(){
@@ -82,7 +89,7 @@ cc.Class({
          //敌人出现总个数
          this.enemy_all_num = 0 ;
          this.enemy_live_num.string = 25;
-        
+         cc.game.addPersistRootNode(this.node_enemy);
     },
 
     start () {
@@ -106,6 +113,9 @@ cc.Class({
      //显示塔的菜单
     show_build_menu : function(node){
         //在建立塔的菜单时要先关闭菜单
+        cc.audioEngine.setEffectsVolume(0.2);
+        //背景音乐，循环播放
+        cc.audioEngine.playMusic(this.audio_dead_enemy,false);
         this.close_build_menu();
         let node_menu = cc.instantiate(this.buildmenu);
         node_menu.getComponent("comp_build_menu").init(1);
@@ -174,6 +184,8 @@ cc.Class({
         let tower = cc.instantiate(this.towerPrefabs[tower_id]);
         tower.parent = this.node;
         tower.position = node.position; //位置放在刚才关掉预制件的位置
+        cc.audioEngine.setEffectsVolume(0.3);
+        cc.audioEngine.playMusic(this.audio_tower_build,false)
         this.setState(node,towerState.Tower);
         node.tower = tower;
         this.set_tower_num += 1;
@@ -188,6 +200,8 @@ cc.Class({
     update_tower:function(){
         let node = this.close_build_menu();
         node.tower.getComponent("tower").updateTower();
+        cc.audioEngine.setEffectsVolume(0.3);
+        cc.audioEngine.playMusic(this.audio_tower_updata,false);
     },
 
     //塔清除
@@ -196,6 +210,8 @@ cc.Class({
         this.setState(node,towerState.Null);
         node.tower.getComponent("tower").deleteTower();
         node.tower = undefined;
+        cc.audioEngine.setEffectsVolume(0.3);
+        cc.audioEngine.playMusic(this.audio_tower_sell,false);
     },
 
     //敌人出现
@@ -212,6 +228,7 @@ cc.Class({
             this.currentWaveConfig = this.levelConfing.waves[0];
             this.mark = true;
         });
+        
     },
 
     update:function(dt){
@@ -221,6 +238,9 @@ cc.Class({
                 if(this.nowAddnemytime > this.currentWaveConfig.dt){
                     this.nowAddnemytime = 0;
                     this.nowCountnemynum ++ ;
+                    cc.audioEngine.setEffectsVolume(0.2);
+                    //背景音乐，循环播放
+                    cc.audioEngine.playMusic(this.audio_hlb_read,true);
                     this.dead_enemy.string = this.enemy_dead_sum || 0;
                     this.addEnemy(this.currentWaveConfig.type);
                     if(this.nowCountnemynum === this.currentWaveConfig.count){
@@ -252,7 +272,10 @@ cc.Class({
         //如果被吃了6次萝卜消失  则弹出游戏失败
         if(this.eat_num >= 6){
             //this.node_game_over.active = true;
+            cc.sys.localStorage.setItem("dead_num",this.enemy_dead_sum);
+            cc.sys.localStorage.setItem("all_num",25);
             cc.director.loadScene("game_result")
+
         }
 
         if((this.enemy_dead_sum + this.eat_num) >= 25 ){
@@ -315,10 +338,16 @@ cc.Class({
     gain_play:function(){
         this.img_hlb1.spriteFrame = this.frame_hlb[this.eat_num];
         cc.log("hlb1_"+this.eat_num);
+        cc.audioEngine.setEffectsVolume(0.2);
+        //背景音乐，循环播放
+        cc.audioEngine.playMusic(this.audio_eat_hlb,false);
     },
 
     enemy_dead:function(_num){
         this.enemy_dead_sum += 1;
+        cc.audioEngine.setEffectsVolume(0.2);
+        //背景音乐，循环播放
+        cc.audioEngine.playMusic(this.audio_dead_enemy,false);
        
     },
 
