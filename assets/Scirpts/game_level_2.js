@@ -37,12 +37,19 @@ cc.Class({
        level2_enemy_live_num : cc.Label,
        level2_tower_num : cc.Label,
        level2_comp_level_2 : cc.Node,
+       audio_hlb_read : cc.AudioClip,
+        audio_eat_hlb : cc.AudioClip,
+        audio_dead_enemy : cc.AudioClip,
+        audio_tower_build :cc.AudioClip,
+        audio_tower_updata :cc.AudioClip,
+        audio_tower_sell :cc.AudioClip,
+        node_set_time : cc.Node,
     },
 
     onLoad(){
         //标志位
         this.mark = false;
-        this.gameStart_leve2();
+        //this.gameStart_leve2();
         //遍历塔
         for(let i = 0 ; i < this.level2_towernodes.length;i++){
             let node_tower = this.level2_towernodes[i];
@@ -115,6 +122,8 @@ cc.Class({
         node_menu.getComponent("comp_build_menu").init(2);
         node_menu.parent = this.node;
         node_menu.position = node.position;
+        cc.audioEngine.setEffectsVolume(0.3);
+        cc.audioEngine.playMusic(this.audio_tower_build,false)
         this.setState(node,towerState.BuildMenu);
         node.buildmenu = node_menu;
     },
@@ -156,6 +165,8 @@ cc.Class({
         tower.parent = this.node;
         tower.position = node.position; //位置放在刚才关掉预制件的位置
         this.setState(node,towerState.Tower);
+        cc.audioEngine.setEffectsVolume(0.3);
+        cc.audioEngine.playMusic(this.audio_tower_build,false)
         node.tower = tower;
         this.set_tower_num += 1;
         this.level2_tower_num.string = this.set_tower_num;
@@ -165,6 +176,8 @@ cc.Class({
     update_leve2_tower : function(){
         let node = this.close_tower();
         node.tower.getComponent("tower").updateTower();
+        cc.audioEngine.setEffectsVolume(0.3);
+        cc.audioEngine.playMusic(this.audio_tower_updata,false);
     },
 
     //塔清除
@@ -173,10 +186,13 @@ cc.Class({
         this.setState(node,towerState.Null);
         node.tower.getComponent("tower").deleteTower();
         node.tower = undefined;
+        cc.audioEngine.setEffectsVolume(0.3);
+        cc.audioEngine.playMusic(this.audio_tower_sell,false);
     },
 
     //敌人出现
     gameStart_leve2:function(){
+        this.node_set_time.active = false;
         cc.loader.loadRes("config/level_config.json",(err,result)=>{
             if(err){
                 cc.log("表格出错");
@@ -196,6 +212,9 @@ cc.Class({
                if(this.now_add_enemy_time>this.leve2_currentWaveConfig.dt){
                    this.now_add_enemy_time = 0;
                    this.now_count_enemy_num ++;
+                   cc.audioEngine.setEffectsVolume(0.2);
+                   //背景音乐，循环播放
+                   cc.audioEngine.playMusic(this.audio_hlb_read,true);
                    this.level2_dead_enemy.string = this.enemy_dead_sum || 0;
                    //增加敌人
                    this.add_enemy(this.leve2_currentWaveConfig.type);
@@ -280,6 +299,8 @@ cc.Class({
 
     gain_play : function(){
         this.level2_img_hlb1.spriteFrame = this.level2_frame_hlb[this.eat_num];
-
+        cc.audioEngine.setEffectsVolume(0.2);
+        //背景音乐，循环播放
+        cc.audioEngine.playMusic(this.audio_eat_hlb,false);
     },
 });

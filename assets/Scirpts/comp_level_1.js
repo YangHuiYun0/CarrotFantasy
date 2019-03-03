@@ -50,6 +50,7 @@ cc.Class({
         audio_tower_build :cc.AudioClip,
         audio_tower_updata :cc.AudioClip,
         audio_tower_sell :cc.AudioClip,
+        lbl_money : cc.Label,
     },
 
     onLoad:function(){
@@ -113,9 +114,9 @@ cc.Class({
      //显示塔的菜单
     show_build_menu : function(node){
         //在建立塔的菜单时要先关闭菜单
-        cc.audioEngine.setEffectsVolume(0.2);
-        //背景音乐，循环播放
-        cc.audioEngine.playMusic(this.audio_dead_enemy,false);
+        // cc.audioEngine.setEffectsVolume(0.2);
+        // //背景音乐，循环播放
+        // cc.audioEngine.playMusic(this.audio_dead_enemy,false);
         this.close_build_menu();
         let node_menu = cc.instantiate(this.buildmenu);
         node_menu.getComponent("comp_build_menu").init(1);

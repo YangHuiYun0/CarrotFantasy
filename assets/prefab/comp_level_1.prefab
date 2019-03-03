@@ -12871,6 +12871,9 @@
     },
     "audio_tower_sell": {
       "__uuid__": "19b16355-f3cc-4e1a-a5c2-f657932127d5"
+    },
+    "lbl_money": {
+      "__id__": 178
     }
   },
   {

@@ -135,9 +135,9 @@ cc.Class({
     },
     //敌人被攻击
     beAttacked:function(damage){
-        cc.audioEngine.setEffectsVolume(0.2);
-        //背景音乐，循环播放
-        cc.audioEngine.playMusic(this.audio_gongji_enemy,false);
+        // cc.audioEngine.setEffectsVolume(0.2);
+        // //背景音乐，循环播放
+        // cc.audioEngine.playMusic(this.audio_gongji_enemy,false);
         //当前的血量减去伤害值
         this.enemy_now_health -= damage;
         if(this.enemy_now_health < 0){

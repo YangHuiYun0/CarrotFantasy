@@ -6,7 +6,7 @@ cc.Class({
 
         lbl_dead_enemy :cc.Label,
         lbl_all_enemy : cc.Label,
-
+        audio_fail :cc.AudioClip,
     },
 
 
@@ -19,6 +19,8 @@ cc.Class({
 
         this.lbl_dead_enemy.string = dead_num;
         this.lbl_all_enemy.string = all_num;
+        cc.audioEngine.setEffectsVolume(0.3);
+        cc.audioEngine.playMusic(this.audio_fail,false)
     },
 
     
