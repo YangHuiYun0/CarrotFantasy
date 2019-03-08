@@ -271,7 +271,12 @@ cc.Class({
             cc.sys.localStorage.setItem("dead_num",this.enemy_dead_sum);
             cc.sys.localStorage.setItem("all_num",45);
             cc.director.loadScene("game_result")
+        }
 
+        
+        if((this.enemy_dead_sum + this.eat_num) >= 45 ){
+            cc.director.loadScene("game_win");
+            return;
         }
     },
 
